@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: kotlin-spring-web-template
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+  endpoint:
+    health:
+      show-details: "always" # 항상 상세 정보 노출 (개발 환경에서만 사용 권장)
