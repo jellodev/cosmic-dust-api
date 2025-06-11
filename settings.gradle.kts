@@ -1,1 +1,1 @@
-rootProject.name = "kotlin-spring-web-template"
+rootProject.name = "cosmic-dust-api"

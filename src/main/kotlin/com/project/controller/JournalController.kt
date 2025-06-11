@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/")
-class ExampleController {
+class JournalController {
 
     @GetMapping("hello_world")
-    fun hello() = "Hello World"
+    fun read() = "Hello World"
 }
