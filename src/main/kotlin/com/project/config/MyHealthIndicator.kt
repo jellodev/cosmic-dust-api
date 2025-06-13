@@ -6,7 +6,5 @@ import org.springframework.stereotype.Component
 
 @Component
 class MyHealthIndicator : HealthIndicator {
-    override fun health(): Health {
-        return Health.up().build()
-    }
+    override fun health(): Health = Health.up().build()
 }

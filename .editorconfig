@@ -1,0 +1,17 @@
+root = true
+
+[*.{kt,kts}]
+charset = utf-8
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+end_of_line = lf
+trim_trailing_whitespace = true
+
+# Kotlin-specific rules
+max_line_length = 120
+
+# Optional: IntelliJ / JetBrains-compatible wrapping
+ij_kotlin_imports_layout = *,java.**,javax.**,kotlin.**,kotlinx.**
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_align_multiline_parameters_in_calls = true

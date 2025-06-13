@@ -1,51 +1,32 @@
 package com.project.service
 
-import com.project.domain.Journal
-import com.project.domain.TextComponent
+import com.project.domain.TextContent
+import com.project.dto.CreateJournalRequest
 import com.project.repository.InMemoryJournalRepository
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
-import java.util.UUID
 
-class JournalServiceTest : FunSpec({
+class JournalServiceTest :
+    FunSpec({
 
-    val journalRepository = mockk<InMemoryJournalRepository>()
-    val journalContentProcessor = mockk<JournalContentProcessor>()
+        val journalRepository = mockk<InMemoryJournalRepository>()
+        val journalContentProcessor = mockk<JournalContentProcessor>()
+        val journalService = JournalService(journalRepository, journalContentProcessor)
 
-    val journalService = JournalService(journalRepository, journalContentProcessor)
+        beforeEach {
+            clearAllMocks()
+        }
 
-    val journalId = UUID.randomUUID().toString()
-    val components = listOf(TextComponent(" text "));
-    val processedComponents = listOf(TextComponent("text"));
-    val journal = Journal(
-        id = journalId,
-        title = "My Title",
-        components = listOf(TextComponent("text")),
-        createdAt = System.currentTimeMillis()
-    )
+        test("should create text journal") {
+            every { journalContentProcessor.processContent(any()) } returns (TextContent("processed"))
+            every { journalRepository.save(any()) } answers { firstArg() }
 
-    beforeEach {
-        clearAllMocks()
-    }
+            val createJournalRequest = CreateJournalRequest("Raw")
+            val journal = journalService.createJournal(createJournalRequest)
 
-    test("") {
-        every { journalContentProcessor.processComponents(components) } returns processedComponents
-        every { journalRepository.save(any()) } returns journal
-
-        val result = journalService.createJournal("My Title", components)
-
-        result.title shouldBe "My Title"
-        result.components shouldBe processedComponents
-
-        verify { journalContentProcessor.processComponents(components) }
-        verify { journalRepository.save(any()) }
-    }
-
-    test("getJournalById") { }
-
-    test("updateJournal") { }
-})
+            journal.content shouldBe TextContent("processed")
+        }
+    })
