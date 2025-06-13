@@ -1,9 +1,12 @@
 spring:
   application:
-    name: kotlin-spring-web-template
+    name: cosmic-dust-api
 
 management:
   endpoints:
     web:
       exposure:
         include: "health,info"
+
+server:
+  port: 8080
